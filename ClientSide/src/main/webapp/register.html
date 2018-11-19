@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+    
+	$("#btn").click(function(){
+		
+		var firstName = $("#firstName").val();
+		var lastName = $("#lastName").val();
+		var City = $("#City").val();
+		var Country = $("#Country").val();
+		var phone = $("#phone").val();
+		var email = $("#email").val();
+		var password = $("#password").val();
+		
+		
+	var data = {'firstName':firstName,'lastName':lastName,'city':City,'country':Country,'phone':phone,'password': password,'email' : email};
+		
+		$.ajax({
+			url: "http://localhost:8080/ServerApp/register.html",
+			type: "POST",
+			data: JSON.stringify(data),
+			contentType: "application/json",
+			success: function(response){
+				alert( JSON.stringify( response));
+				location.href = "http://localhost:8080/ClientSide/home.html";
+			},
+			error: function(xhr){
+				alert('error');
+			}
+		});
+		
+		
+		
+		
+	});
+	
+	$.getJson
+	
+	
+});
+</script>
+
+
+<title>Register</title>
+</head>
+<body>
+<div class="container">
+        <div class="card card-container">
+			<form id = 'register'>
+
+				
+				First Name: <input id="firstName" class="form-control" type="text"/>
+				
+				
+				Last Name: <input id="lastName" class="form-control" type="text"/>
+				
+				
+				City: <input id="City" class="form-control" type="text"/>
+				
+				
+				Country: <input id="Country" class="form-control" type="text"/>
+				
+				
+				Phone: <input id="phone" class="form-control" type="text"/>
+				
+				
+				Password: <input id="password" class="form-control" type="password"/>
+				
+				
+				Email: <input id="email" class="form-control" type="text"/>
+				
+				<button class="btn btn-lg btn-primary btn-block btn-signin" id="btn" type="submit">Register</button>
+            </form>
+          
+
+          </div>
+          </div>
+
+</body>
+</html>

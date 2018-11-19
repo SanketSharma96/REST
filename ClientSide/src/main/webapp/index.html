@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<!-- <link rel="stylesheet" href="/ClientSide/src/main/resources/login.css" type="text/css"> -->
+<link rel="stylesheet" href="resources/login.css" type="text/css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>SignIn</title>
+
+<script type="text/javascript">
+$(document).ready(function(){
+    
+	$("#btn").click(function(){
+		
+		
+		var email = $("#email").val();
+		var password = $("#password").val();
+		
+		
+	var data = {'email' : email,'password': password};
+		
+		$.ajax({
+			url: "http://localhost:8080/ServerApp/login.html",
+			type: "POST",
+			data: JSON.stringify(data),
+			contentType: "application/json",
+			success: function(response){
+				//alert( JSON.stringify( response));
+				console.log(response.type);
+				if(response.type==1)
+					alert("admin");
+				else if(response.type==0){
+					//alert("customer");
+					location.href = "http://localhost:8080/ClientSide/home.html";
+					
+				} else{
+					var div = $('<div/>', {class:'alert alert-danger'})
+					div.append('<strong>Error!</strong>Incorrect username or password');
+					$('#login').append(div);
+				}
+			},
+			error: function(xhr){
+				alert("Error");
+			}
+		});
+		
+		
+		
+		
+	});
+	
+	$.getJson
+	
+	
+});
+</script>
+
+
+</head>
+<body>
+<div class="container">
+        <div class="card card-container" id = "login">
+            <p id="profile-name" class="profile-name-card"></p>
+             <form class="form-signin">
+	        	<h2 class="form-signin-heading">Please sign in</h2>
+	        	<label for="email" class="sr-only">Email address</label>
+	        	<input type="text"  id="email" class="form-control" placeholder="example@gmail.com" required autofocus>
+	        	<label for="password" class="sr-only">Password</label>
+	        	<input type="password" id="password" class="form-control" placeholder="Password" required>
+        
+        		<button class="btn btn-lg btn-primary btn-block" type="button" id="btn">Sign in</button>
+      		</form>
+            <div>
+            	<a href="register.html">Create account</a>
+          	</div>
+            
+        
+    </div>
+    </div>
+</body>
+</html>
