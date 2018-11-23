@@ -37,7 +37,8 @@ $(document).ready(function(){
 				//alert( JSON.stringify( response));
 				console.log(response.type);
 				if(response.type==1)
-					alert("admin");
+					//alert("admin");
+					location.href = "http://localhost:8080/ClientSide/admin.html";
 				else if(response.type==0){
 					//alert("customer");
 					location.href = "http://localhost:8080/ClientSide/home.html";

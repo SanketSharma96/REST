@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script type="text/javascript">
+
+
+$(document).ready(function(){
+	
+	function readFile() {
+		  
+		  if (this.files && this.files[0]) {
+		    
+		    var FR= new FileReader();
+		    
+		    FR.addEventListener("load", function(e) {
+		      document.getElementById("img").src       = e.target.result;
+		      document.getElementById("b64").innerHTML = e.target.result;
+		      document.getElementById("test").value = e.target.result;
+		    }); 
+		    
+		     FR.readAsDataURL( this.files[0] );
+		  }
+		  
+		};
+		document.getElementById("inp").addEventListener("change", readFile);
+		
+		function onchange() {
+            var box1 = $('#b64');
+            var box2 = $('#test');
+            box2.val(box1.val());
+        };
+        $('#b64').on('change', onchange);
+    
+		
+	$("#btn").click(function(){
+	
+		var productName = $("#productName").val();
+		var unitPrice = $("#unitPrice").val();
+		var category = $("#category").val();
+		
+		var image = $("#test").val();
+		console.log("image "+image);
+	
+		var imageData = image.replace("data:image/png;base64,","");
+		//var data = {'productName':productName,'unitPrice':unitPrice,'img':image,'category':category};
+		var data = {'productName':productName,'unitPrice':unitPrice,'category':category,'img':imageData};
+
+		
+ 
+  $.ajax({
+    url: 'http://localhost:8080/ServerApp/saveProduct.html',
+    type: 'POST',
+    data: JSON.stringify(data),
+    contentType: "application/json",
+    success: function (returndata) {
+    	alert('success adding product');
+    	console.log(returndata);
+        
+    },
+  	error: function(xhr){
+  		alert('error');
+  		//console.log(xhr);
+  	}
+  });
+ 
+  $.getJson
+});
+
+});
+</script>
+
+<title>Admin</title>
+</head>
+<body>
+<header>
+		<nav class="navbar navbar-inverse">
+			<div class="container-fluid">
+				<div class = "navbar-header">
+					<a class="navbar-brand" href="#">OnlineStore</a>
+				</div>
+				<ul class = "nav navbar-nav navbar-right">
+					<li><a href="logout.html" >Logout</a></li>
+					
+				</ul>
+			</div>
+		</nav>
+	</header>
+<section>
+<div class="container">
+        <div class="card card-container">
+            <p id="profile-name" class="profile-name-card"></p>
+           
+            <form id="data" method="post"> <!-- action='http://localhost:8080/ServerApp/saveProduct.html' enctype="multipart/form-data" method="post"> -->
+				    Product Name: <input type="text" id="productName" name="productName" class="form-control"/>
+				    Price: $<input type="number" min="0.01" step="0.01" id="unitPrice" name="unitPrice" class="form-control"/>
+				    Category: <input type="text" id="category" name="category" class="form-control"/>
+				    Image: <input type="file" id="inp" name="img" class = "form-control" accept="image/jpeg, image/png"/>
+<!-- 				    <p id ="test" hidden="true"></p> -->
+				<input type = "text" value="#" hidden="true" id = "test" name="Image"/>
+					
+				<button class="btn btn-lg btn-primary btn-block btn-signin" id="btn" type="submit">Add Item</button>
+            </form>
+            
+            
+           <p id="b64"></p>
+           <img id="img" height="150"> 
+            
+        
+    
+    </div>
+    </div>
+</section>    
+</body>
+</html>
